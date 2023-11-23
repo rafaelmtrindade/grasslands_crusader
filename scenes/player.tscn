@@ -30,7 +30,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("AttackArea/Collision:disabled")
+tracks/2/path = NodePath("AttackArea/Hitbox:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -58,7 +58,7 @@ tracks/0/keys = {
 "values": [ 42, 43, 44, 45 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("AttackArea/Collision:disabled")
+tracks/1/path = NodePath("AttackArea/Hitbox:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -189,7 +189,7 @@ editor_draw_drag_margin = true
 
 [node name="AttackArea" type="Area2D" parent="." groups=["player_attack"]]
 
-[node name="Collision" type="CollisionShape2D" parent="AttackArea"]
+[node name="Hitbox" type="CollisionShape2D" parent="AttackArea"]
 position = Vector2( 20, 8 )
 shape = SubResource( 7 )
 disabled = true

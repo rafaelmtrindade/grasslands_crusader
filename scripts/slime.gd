@@ -7,8 +7,8 @@ export(int) var damage
 onready var animation: AnimationPlayer = get_node("AnimationPlayer")
 onready var sprite: Sprite = get_node("Sprite")
 
-var player_ref = null
 var velocity: Vector2
+var player_ref = null
 var is_dying = false
 
 
@@ -50,21 +50,21 @@ func verify_direction() -> void:
 		sprite.flip_h = true
 
 
-func _on_body_entered(body):
+func _on_body_entered(body) -> void:
 	if body.is_in_group("player"):
 		player_ref = body
 
 
-func _on_body_exited(body):
+func _on_body_exited(body) -> void:
 	if body.is_in_group("player"):
 		player_ref = null
 
 
-func kill(area):
+func kill(area) -> void:
 	if area.is_in_group("player_attack"):
 		is_dying = true
 
 
-func _on_animation_finished(anim_name):
+func _on_animation_finished(anim_name) -> void:
 	if anim_name == "death":
 		queue_free()

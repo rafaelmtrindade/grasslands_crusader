@@ -6,7 +6,7 @@ export(int) var damage
 
 onready var animation: AnimationPlayer = get_node("AnimationPlayer")
 onready var sprite: Sprite = get_node("Sprite")
-onready var atk_collision: CollisionShape2D = get_node("AttackArea/Collision")
+onready var atk_collision: CollisionShape2D = get_node("AttackArea/Hitbox")
 
 const RUN_PARTICLE: PackedScene = preload("res://scenes/player/run_particle.tscn")
 
@@ -19,6 +19,7 @@ func _physics_process(_delta) -> void:
 	attack()
 	animate()
 	verify_direction()
+
 
 func move() -> void:
 	var dir: Vector2 = Vector2(
@@ -76,7 +77,7 @@ func kill() -> void:
 	is_dying = true
 
 
-func _on_animation_finished(anim_name):
+func _on_animation_finished(anim_name) -> void:
 	if anim_name == "death":
 		var _reload: bool = get_tree().reload_current_scene()
 	elif anim_name == "attack":
