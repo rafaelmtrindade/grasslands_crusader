@@ -1,12 +1,12 @@
 extends KinematicBody2D
 
-export(int) var speed
-export(int) var health
-export(int) var damage
+export var speed: int
+export var health: int
+export var damage: int
 
-onready var animation: AnimationPlayer = get_node("AnimationPlayer")
-onready var sprite: Sprite = get_node("Sprite")
-onready var atk_collision: CollisionShape2D = get_node("AttackArea/Hitbox")
+# onready var animation: AnimationPlayer = get_node("AnimationPlayer")
+# onready var sprite: Sprite = get_node("Sprite")
+onready var atk_hitbox: CollisionShape2D = get_node("AttackArea/Hitbox")
 
 const RUN_PARTICLE: PackedScene = preload("res://scenes/player/run_particle.tscn")
 
@@ -38,24 +38,26 @@ func attack() -> void:
 
 func animate() -> void:
 	if is_dying:
-		animation.play("death")
+		$AnimationPlayer.play("death")
 		set_physics_process(false)
 	elif !can_attack:
-		animation.play("attack")
+		$AnimationPlayer.play("attack")
 		set_physics_process(false)
 	elif velocity != Vector2.ZERO:
-		animation.play("run")
+		$AnimationPlayer.play("run")
 	else:
-		animation.play("idle")
+		$AnimationPlayer.play("idle")
 
 
 func verify_direction() -> void:
 	if velocity.x > 0:
-		sprite.flip_h = false
-		atk_collision.position = Vector2(20, 8)
+		$Sprite.flip_h = false
+		atk_hitbox.position = Vector2(14, 12)
+		# atk_hitbox.position = Vector2(20, 8)
 	elif velocity.x < 0:
-		sprite.flip_h = true
-		atk_collision.position = Vector2(-20, 8)
+		$Sprite.flip_h = true
+		atk_hitbox.position = Vector2(-14, 12)
+		# atk_hitbox.position = Vector2(-20, 8)
 
 
 func instance_run_particle() -> void:
@@ -63,14 +65,6 @@ func instance_run_particle() -> void:
 	get_tree().root.call_deferred("add_child", particle)
 	particle.global_position = global_position + Vector2(0, 16)
 	particle.play_particle()
-
-
-# todo
-func take_damage(amount) -> void:
-	# todo: 
-	#	checar se o jogador pode tomar dano (cooldown)
-	health -= amount
-	if health <= 0: kill()
 
 
 func kill() -> void:

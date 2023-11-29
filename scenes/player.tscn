@@ -152,8 +152,10 @@ tracks/1/keys = {
 extents = Vector2( 5.5, 4.5 )
 
 [sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 14, 11 )
 
 [node name="Player" type="KinematicBody2D" groups=["player"]]
+collision_layer = 2
 script = ExtResource( 2 )
 speed = 130
 
@@ -190,7 +192,7 @@ editor_draw_drag_margin = true
 [node name="AttackArea" type="Area2D" parent="." groups=["player_attack"]]
 
 [node name="Hitbox" type="CollisionShape2D" parent="AttackArea"]
-position = Vector2( 20, 8 )
+position = Vector2( 14, 11 )
 shape = SubResource( 7 )
 disabled = true
 
